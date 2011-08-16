@@ -1,6 +1,7 @@
 import urllib2
 import json
 import optparse
+import sys
 
 SEARCH_URL = 'http://ws.spotify.com/search/1/%s.json?q=%s'
 
@@ -9,6 +10,10 @@ def fetch_url(url):
     return json.loads(result)
 
 def main(opts, args):
+    if not args:
+        print 'Nothing to search.'
+        sys.exit(0)
+
     url = SEARCH_URL % (opts.type, args[0])
     js = fetch_url(url)
     if opts.verbose:
